@@ -6,8 +6,8 @@ package heapq
 
 type Interface interface {
 	Append(item interface{})	// append a item into your heap
-	At(i int) interface{}		// return the i'th item, just like slice[i]
 	Assign(i int,item interface{})	// assign the i'th as item, just like slice[i] = item
+	At(i int) interface{}		// return the i'th item, just like slice[i]
 	IsMinHeap() bool			// if your heap need to be a min heap, return true,
 								// otherwise, return false
 	Len() int					// return your heap's length
@@ -101,10 +101,3 @@ func siftup(heap Interface,pos int,flag bool) {
 	heap.Assign(pos,newitem)
 	siftdown(heap,startpos,pos,flag)
 }
-//func Merge(iterables ...*Heap) *Heap {
-//
-//}
-//
-//func (h *Heap) HeapPush(item interface{}){
-//
-//}
