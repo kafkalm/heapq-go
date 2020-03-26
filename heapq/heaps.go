@@ -46,7 +46,7 @@ func (h *StringHeap) Assign(i int, item interface{}) {
 	}
 }
 func (h *StringHeap) At(i int) interface{} {return h.Heap[i]}
-func (h *StringHeap) IsMinHeap() bool {return h.isMinHeap}
+func (h *StringHeap) IsMinHeap() bool {return h.MinFlag}
 func (h *StringHeap) Len() int {return len(h.Heap)}
 func (h *StringHeap) Less(i, j int) bool {return h.Heap[i] < h.Heap[j]}
 func (h *StringHeap) Pop(i int) interface{} {
