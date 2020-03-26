@@ -46,7 +46,7 @@ func (h *StringHeap) Assign(i int, item interface{}) {
 	}
 }
 func (h *StringHeap) At(i int) interface{} {return h.Heap[i]}
-func (h *StringHeap) IsMinHeap() bool {return h.isMinHeap}
+func (h *StringHeap) IsMinHeap() bool {return h.MinFlag}
 func (h *StringHeap) Len() int {return len(h.Heap)}
 func (h *StringHeap) Less(i, j int) bool {return h.Heap[i] < h.Heap[j]}
 func (h *StringHeap) Pop(i int) interface{} {
@@ -55,3 +55,43 @@ func (h *StringHeap) Pop(i int) interface{} {
 	return items
 }
 func (h *StringHeap) Swap(i, j int) {h.Heap[i],h.Heap[j] = h.Heap[j],h.Heap[i]}
+
+
+// a map[string]int heap, this heap has a new variable named "CompareFlag",
+// if `CompareFlag` == true, this heap use `Key` to compare, otherwise,
+// use `Value` to compare.
+type MapStringInt struct {
+	Key string
+	Value int
+}
+type MapHeap struct {
+	Heap []MapStringInt
+	MinFlag bool
+	CompareFlag bool
+}
+func (h *MapHeap) Append(item interface{}) {
+	if v,ok := item.(MapStringInt);ok {
+		h.Heap = append(h.Heap,v)
+	}
+}
+func (h *MapHeap) Assign(i int, item interface{}) {
+	if v,ok := item.(MapStringInt);ok {
+		h.Heap[i] = v
+	}
+}
+func (h *MapHeap) At(i int) interface{} {return h.Heap[i]}
+func (h *MapHeap) IsMinHeap() bool {return h.MinFlag}
+func (h *MapHeap) Len() int {return len(h.Heap)}
+func (h *MapHeap) Less(i, j int) bool {
+	if h.CompareFlag {
+		return h.Heap[i].Key < h.Heap[j].Key
+	} else {
+		return h.Heap[i].Value < h.Heap[i].Value
+	}
+}
+func (h *MapHeap) Pop(i int) interface{} {
+	items := h.Heap[i]
+	h.Heap = append(h.Heap[:i],h.Heap[i+1:]...)
+	return items
+}
+func (h *MapHeap) Swap(i, j int) {h.Heap[i],h.Heap[j] = h.Heap[j],h.Heap[i]}
